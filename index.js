@@ -174,9 +174,11 @@ function move(gameState) {
         y_dist = Math.abs(myHead.y - piece.y);
         total_dist = x_dist + y_dist;
 
+        //Closest piece thus far
         if(total_dist < min_dist) {
             min_dist = total_dist;
             
+            //Closer in horizontal direction
             if(x_dist < y_dist) {
                 //Closest piece to the left and left is safe 
                 if((piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
@@ -192,6 +194,7 @@ function move(gameState) {
                     else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
                 }
             }
+            //Closer in vertical direction
             else{
                 //Closest piece is down and down is safe
                 if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
@@ -207,11 +210,9 @@ function move(gameState) {
                     else if((piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
                 }
             }
-
-            
+                
         }
     }
-    nextMove = dir;
 
     console.log(`MOVE ${gameState.turn}: ${nextMove}`)
     return { move: nextMove };
