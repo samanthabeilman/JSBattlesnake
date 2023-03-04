@@ -80,7 +80,7 @@ function move(gameState) {
 
     for(let b in myBody ){
         if(b == myTail) { break; }
-        console.log("Body Part: ", b);
+        console.log("Body Part: ", myBody[b]);
         //body piece to the current immediate right
         if(myHead.x + 1 == myBody[b].x && myHead.y == myBody[b].y){
             isMoveSafe.right = false;
