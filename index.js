@@ -76,7 +76,7 @@ function move(gameState) {
     
     // TODO: Step 2 - Prevent your Battlesnake from colliding with itself
     let myBody = gameState.you.body;
-    for( b in myBody ){
+    for(let b in myBody ){
         if(b == myTail) { break; }
         //body piece to the current immediate right
         if(myHead.x + 1 == b.x && myHead.y == b.y){
@@ -176,19 +176,6 @@ function move(gameState) {
 
         if(total_dist < min_dist) {
             min_dist = total_dist;
-               
-                //Closest piece to the left and left is safe
-    //         if((x_dist < y_dist) && (piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
-                //Closest piece to the right and right is safe
-    //         else if((x_dist < y_dist) && (piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }   
-                //Closest piece down and down is safe
-    //         else if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
-                //Closest piece up and up is safe
-    //         else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; } 
-                //Edge cases??
-    //         else {
-    //
-    //        }
             
             if(x_dist < y_dist) {
                 //Closest piece to the left and left is safe 
@@ -199,7 +186,7 @@ function move(gameState) {
 
                 //Edge cases: 
                 //1. x = 0
-                //2. No safe route on horizontal axis
+                //2. No safe move on horizontal axis
                 else{
                     if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
                     else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
@@ -213,9 +200,11 @@ function move(gameState) {
                 else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
 
                 //Edge cases:
-                //1. 
+                //1. y = 0
+                //2. No safe move on vertical axis
                 else{
-
+                    if((piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
+                    else if((piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
                 }
             }
 
