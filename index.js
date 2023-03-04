@@ -138,19 +138,19 @@ function move(gameState) {
         for( let piece in opponents[snake].body ) {
             console.log(opponents[snake][piece]);
             //enemy body piece to the current immediate right
-            if((myHead.x + 1) == opponents[snake][piece].x && myHead.y == opponents[snake][piece].y) {
+            if((myHead.x + 1) == opponents[snake].body[piece].x && myHead.y == opponents[snake].body[piece].y) {
                 isMoveSafe.right = false;
             }
             //enemy body opponents[snake][piece] to the currect immediat left
-            else if((myHead.x - 1) == opponents[snake][piece].x && myHead.y == opponents[snake][piece].y) {
+            else if((myHead.x - 1) == opponents[snake].body[piece].x && myHead.y == opponents[snake].body[piece].y) {
                 isMoveSafe.left = false;
             }
             //enemy body opponents[snake][piece] to the current immediate up
-            else if((myHead.y + 1) == opponents[snake][piece].y && myHead.x == opponents[snake][piece].x) {
+            else if((myHead.y + 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
                 isMoveSafe.up = false;
             }
             //enemy body opponents[snake][piece] to teh current immediate down 
-            else if((myHead.y - 1) == opponents[snake][piece].y && myHead.x == opponents[snake][piece].x) {
+            else if((myHead.y - 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
                 isMoveSafe.down = false;
             }
         }
