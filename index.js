@@ -65,8 +65,8 @@ function move(gameState) {
     }
 
     // TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
-    boardWidth = gameState.board.width;
-    boardHeight = gameState.board.height;
+    let boardWidth = gameState.board.width;
+    let boardHeight = gameState.board.height;
 
     if(myHead.x < 0) { isMoveSafe.left = false; }
     else if(myHead.x > (boardWidth-1)) { isMoveSafe.right = false; }
@@ -126,13 +126,13 @@ function move(gameState) {
     // }
     
     // TODO: Step 3 - Prevent your Battlesnake from colliding with other Battlesnakes
-    opponents = gameState.board.snakes;
-    for( snake in opponents) {
+    let opponents = gameState.board.snakes;
+    for( let snake in opponents) {
         
         //excludes ourselves
         if(snake.id == gameState.you.id) { continue; }
 
-        for( piece in snake.body ) {
+        for( let piece in snake.body ) {
             //enemy body piece to the current immediate right
             if((myHead.x + 1) == piece.x && myHead.y == piece.y) {
                 isMoveSafe.right = false;
@@ -164,52 +164,54 @@ function move(gameState) {
 
     // Step 4 - Move towards food instead of random, to regain health and survive longer
     // Very primitive design - Chooses the move based on the closest food objcet regardless of safety
-    // food = gameState.board.food;
-    // let min_dist = 100; //placeholder value 
-    // let dir = "";
-    // let x_dist;
-    // let y_dist;
-    // let total_dist;
-    // for(piece in food) {
-    //     x_dist = Math.abs(myHead.x - piece.x);
-    //     y_dist = Math.abs(myHead.y - piece.y);
-    //     total_dist = x_dist + y_dist;
+    let food = gameState.board.food;
+    let min_dist = 100; //placeholder value 
+    let x_dist;
+    let y_dist;
+    let total_dist;
+    for(let piece in food) {
+        x_dist = Math.abs(myHead.x - piece.x);
+        y_dist = Math.abs(myHead.y - piece.y);
+        total_dist = x_dist + y_dist;
 
-    //     if(total_dist < min_dist) {
-    //         min_dist = total_dist;
-            
+        if(total_dist < min_dist) {
+            min_dist = total_dist;
+               
+                //Closest piece to the left and left is safe
     //         if((x_dist < y_dist) && (piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
+                //Closest piece to the right and right is safe
     //         else if((x_dist < y_dist) && (piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }   
+                //Closest piece down and down is safe
     //         else if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
+                //Closest piece up and up is safe
     //         else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; } 
+                //Edge cases??
     //         else {
     //
-    //         }
-    //         
-    //     }
+    //        }
+            
+            if(x_dist < y_dist) {
+                //Closest piece to the left and left is safe 
+                if((piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
 
-        //Above or below food piece
-        // if(x_dist == 0) {
-        //     if(piece.y < myHead.y) { dir = "down"; }
-        //     else { dir = "up"; }
-        // }
-        // if(y_dist == 0) {
-        //     if(piece.x < myHead.x) { dir = "left"; }
-        //     else { dir = "right"; }
-        // }
-        // if(x_dist < min_dist) { 
-        //     min_dist = x_dist; 
+                //Closest piece to the right and right is safe 
+                else if((piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
 
-        //     if(piece.x < myHead.x) { dir = "left"; }
-        //     else { dir = "right"; }
-        // }
-        // if(y_dist < min_dist) { 
-        //     min_dist = y_dist; 
+                //Edge cases: 
+                //1. x = 0
+                //2. No safe route on horizontal axis
+                else{
+                    if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
+                    else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
+                    else{
+                        
+                    }
+                }
+            }
 
-        //     if(piece.y < myHead.y) { dir = "down"; }
-        //     else { dir = "up"; }
-        // }   
-    //}
+            
+        }
+    }
     nextMove = dir;
 
     console.log(`MOVE ${gameState.turn}: ${nextMove}`)
@@ -264,8 +266,8 @@ function recursiveFlood(node, total, gameState){ // we will pass each possible s
     if(node.x > 11 || node.y > 11 || node.x < 0 || node.y < 0) return;
     opponents = gameState.board.snakes;
     pieces = [];
-    for( snake in opponents) {
-        for( piece in snake.body ) {
+    for( let snake in opponents) {
+        for( let piece in snake.body ) {
             pieces.push(piece);
         }
     }
