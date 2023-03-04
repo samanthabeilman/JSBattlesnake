@@ -21,9 +21,9 @@ function info() {
     return {
         apiversion: "1",
         author: "hexxily",       // TODO: Your Battlesnake Username
-        color: "#888888", // TODO: Choose color
-        head: "default",  // TODO: Choose head
-        tail: "default",  // TODO: Choose tail
+        color: "#6997e0", // TODO: Choose color
+        head: "mystic-moon",  // TODO: Choose head
+        tail: "caffeine",  // TODO: Choose tail
     };
 }
 
@@ -98,7 +98,7 @@ function move(gameState) {
             isMoveSafe.down = false;
         }
     }
-    
+
     //avoid bounding yourself in following turns
     avoidBoundingSelf(gameState.you, isMoveSafe);
     
