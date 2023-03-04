@@ -136,6 +136,7 @@ function move(gameState) {
         if(opponents[snake].id == gameState.you.id) { continue; }
 
         for( let piece in opponents[snake].body ) {
+            console.log(opponents[snake][piece]);
             //enemy body piece to the current immediate right
             if((myHead.x + 1) == opponents[snake][piece].x && myHead.y == opponents[snake][piece].y) {
                 isMoveSafe.right = false;
