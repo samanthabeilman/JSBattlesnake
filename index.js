@@ -98,6 +98,7 @@ function move(gameState) {
             isMoveSafe.down = false;
         }
     }
+    
     //avoid bounding yourself in following turns
     avoidBoundingSelf(gameState.you, isMoveSafe);
     
