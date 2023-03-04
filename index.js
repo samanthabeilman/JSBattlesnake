@@ -77,24 +77,24 @@ function move(gameState) {
     // TODO: Step 2 - Prevent your Battlesnake from colliding with itself
     let myBody = gameState.you.body;
     console.log("Head Part: ", myHead);
-    
+
     for(let b in myBody ){
         if(b == myTail) { break; }
         console.log("Body Part: ", b);
         //body piece to the current immediate right
-        if(myHead.x + 1 == b.x && myHead.y == b.y){
+        if(myHead.x + 1 == myBody[b].x && myHead.y == myBody[b].y){
             isMoveSafe.right = false;
         }
         //body piece to the current immediate left
-        else if (myHead.x - 1 == b.x && myHead.y == b.y){
+        else if (myHead.x - 1 == myBody[b].x && myHead.y == myBody[b].y){
             isMoveSafe.left = false;
         }
         //body piece to the current immediate up
-        else if(myHead.y + 1 == b.y && myHead.x == b.x){
+        else if(myHead.y + 1 == myBody[b].y && myHead.x == myBody[b].x){
             isMoveSafe.up = false;
         }
         //body piece to the current immediate down
-        else if(myHead.y - 1 == b.y && myHead.x == b.x){
+        else if(myHead.y - 1 == myBody[b].y && myHead.x == myBody[b].x){
             isMoveSafe.down = false;
         }
     }
@@ -133,23 +133,23 @@ function move(gameState) {
     for( let snake in opponents) {
         
         //excludes ourselves
-        if(snake.id == gameState.you.id) { continue; }
+        if(opponents[snake].id == gameState.you.id) { continue; }
 
-        for( let piece in snake.body ) {
+        for( let piece in opponents[snake].body ) {
             //enemy body piece to the current immediate right
-            if((myHead.x + 1) == piece.x && myHead.y == piece.y) {
+            if((myHead.x + 1) == opponents[snake][piece].x && myHead.y == opponents[snake][piece].y) {
                 isMoveSafe.right = false;
             }
-            //enemy body piece to the currect immediat left
-            else if((myHead.x - 1) == piece.x && myHead.y == piece.y) {
+            //enemy body opponents[snake][piece] to the currect immediat left
+            else if((myHead.x - 1) == opponents[snake][piece].x && myHead.y == opponents[snake][piece].y) {
                 isMoveSafe.left = false;
             }
-            //enemy body piece to the current immediate up
-            else if((myHead.y + 1) == piece.y && myHead.x == piece.x) {
+            //enemy body opponents[snake][piece] to the current immediate up
+            else if((myHead.y + 1) == opponents[snake][piece].y && myHead.x == opponents[snake][piece].x) {
                 isMoveSafe.up = false;
             }
-            //enemy body piece to teh current immediate down 
-            else if((myHead.y - 1) == piece.y && myHead.x == piece.x) {
+            //enemy body opponents[snake][piece] to teh current immediate down 
+            else if((myHead.y - 1) == opponents[snake][piece].y && myHead.x == opponents[snake][piece].x) {
                 isMoveSafe.down = false;
             }
         }
@@ -173,44 +173,44 @@ function move(gameState) {
     let y_dist;
     let total_dist;
     for(let piece in food) {
-        x_dist = Math.abs(myHead.x - piece.x);
-        y_dist = Math.abs(myHead.y - piece.y);
+        x_dist = Math.abs(myHead.x - food[piece].x);
+        y_dist = Math.abs(myHead.y - food[piece].y);
         total_dist = x_dist + y_dist;
 
-        //Closest piece thus far
+        //Closest food[piece] thus far
         if(total_dist < min_dist) {
             min_dist = total_dist;
             
             //Closer in horizontal direction
             if(x_dist < y_dist) {
-                //Closest piece to the left and left is safe 
-                if((piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
+                //Closest food[piece] to the left and left is safe 
+                if((food[piece].x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
 
-                //Closest piece to the right and right is safe 
-                else if((piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
+                //Closest food[piece] to the right and right is safe 
+                else if((food[piece].x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
 
                 //Edge cases: 
                 //1. x = 0
                 //2. No safe move on horizontal axis
                 else{
-                    if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
-                    else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
+                    if((food[piece].y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
+                    else if((food[piece].y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
                 }
             }
             //Closer in vertical direction
             else{
-                //Closest piece is down and down is safe
-                if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
+                //Closest food[piece] is down and down is safe
+                if((food[piece].y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
 
-                //Closest piece is up and up is safe
-                else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
+                //Closest food[piece] is up and up is safe
+                else if((food[piece].y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
 
                 //Edge cases:
                 //1. y = 0
                 //2. No safe move on vertical axis
                 else{
-                    if((piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
-                    else if((piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
+                    if((food[piece].x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
+                    else if((food[piece].x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }
                 }
             }
                 
@@ -269,9 +269,9 @@ function recursiveFlood(node, total, gameState){ // we will pass each possible s
     if(node.x > 11 || node.y > 11 || node.x < 0 || node.y < 0) return;
     opponents = gameState.board.snakes;
     pieces = [];
-    for( let snake in opponents) {
-        for( let piece in snake.body ) {
-            pieces.push(piece);
+    for( let opponents[snake] in opponents) {
+        for( let piece in opponents[snake].body ) {
+            pieces.push(opponents[snake].body[piece]);
         }
     }
     if(pieces.includes(node)) return;
