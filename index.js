@@ -76,8 +76,10 @@ function move(gameState) {
     
     // TODO: Step 2 - Prevent your Battlesnake from colliding with itself
     let myBody = gameState.you.body;
+    console.log("Head Part: ", myHead);
     for(let b in myBody ){
         if(b == myTail) { break; }
+        console.log("Body Part: ", b);
         //body piece to the current immediate right
         if(myHead.x + 1 == b.x && myHead.y == b.y){
             isMoveSafe.right = false;
