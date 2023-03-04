@@ -269,7 +269,7 @@ function recursiveFlood(node, total, gameState){ // we will pass each possible s
     if(node.x > 11 || node.y > 11 || node.x < 0 || node.y < 0) return;
     opponents = gameState.board.snakes;
     pieces = [];
-    for( let opponents[snake] in opponents) {
+    for( let snake in opponents) {
         for( let piece in opponents[snake].body ) {
             pieces.push(opponents[snake].body[piece]);
         }
