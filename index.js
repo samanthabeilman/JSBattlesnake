@@ -70,8 +70,8 @@ function move(gameState) {
 
     if(myHead.x == 0) { isMoveSafe.left = false; }
     else if(myHead.x == (boardWidth-1)) { isMoveSafe.right = false; }
-    else if(myHead.y == 0) { isMoveSafe.down = false; }
-    else if(myHead.y == (boardHeight-1)) { isMoveSafe.up = false }
+    if(myHead.y == 0) { isMoveSafe.down = false; }
+    else if(myHead.y == (boardHeight-1)) { isMoveSafe.up = false; }
 
     
     // TODO: Step 2 - Prevent your Battlesnake from colliding with itself
@@ -86,15 +86,15 @@ function move(gameState) {
             isMoveSafe.right = false;
         }
         //body piece to the current immediate left
-        else if (myHead.x - 1 == myBody[b].x && myHead.y == myBody[b].y){
+        if (myHead.x - 1 == myBody[b].x && myHead.y == myBody[b].y){
             isMoveSafe.left = false;
         }
         //body piece to the current immediate up
-        else if(myHead.y + 1 == myBody[b].y && myHead.x == myBody[b].x){
+        if(myHead.y + 1 == myBody[b].y && myHead.x == myBody[b].x){
             isMoveSafe.up = false;
         }
         //body piece to the current immediate down
-        else if(myHead.y - 1 == myBody[b].y && myHead.x == myBody[b].x){
+        if(myHead.y - 1 == myBody[b].y && myHead.x == myBody[b].x){
             isMoveSafe.down = false;
         }
     }
@@ -136,21 +136,20 @@ function move(gameState) {
         if(opponents[snake].id == gameState.you.id) { continue; }
 
         for( let piece in opponents[snake].body ) {
-            console.log(opponents[snake].body[piece]);
             //enemy body piece to the current immediate right
             if((myHead.x + 1) == opponents[snake].body[piece].x && myHead.y == opponents[snake].body[piece].y) {
                 isMoveSafe.right = false;
             }
             //enemy body opponents[snake][piece] to the currect immediat left
-            else if((myHead.x - 1) == opponents[snake].body[piece].x && myHead.y == opponents[snake].body[piece].y) {
+            if((myHead.x - 1) == opponents[snake].body[piece].x && myHead.y == opponents[snake].body[piece].y) {
                 isMoveSafe.left = false;
             }
             //enemy body opponents[snake][piece] to the current immediate up
-            else if((myHead.y + 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
+            if((myHead.y + 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
                 isMoveSafe.up = false;
             }
             //enemy body opponents[snake][piece] to teh current immediate down 
-            else if((myHead.y - 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
+            if((myHead.y - 1) == opponents[snake].body[piece].y && myHead.x == opponents[snake].body[piece].x) {
                 isMoveSafe.down = false;
             }
         }
