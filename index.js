@@ -75,7 +75,7 @@ function move(gameState) {
 
     
     // TODO: Step 2 - Prevent your Battlesnake from colliding with itself
-    myBody = gameState.you.body;
+    let myBody = gameState.you.body;
     for( b in myBody ){
         if(b == myTail) { break; }
         //body piece to the current immediate right
@@ -203,9 +203,19 @@ function move(gameState) {
                 else{
                     if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
                     else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
-                    else{
-                        
-                    }
+                }
+            }
+            else{
+                //Closest piece is down and down is safe
+                if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
+
+                //Closest piece is up and up is safe
+                else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; }
+
+                //Edge cases:
+                //1. 
+                else{
+
                 }
             }
 
