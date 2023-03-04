@@ -178,11 +178,13 @@ function move(gameState) {
     //     if(total_dist < min_dist) {
     //         min_dist = total_dist;
             
-    //         if(!(x_dist == 0) && (x_dist < y_dist) && (piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
-    //         else if(!(x_dist == 0) && (x_dist < y_dist) && (piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }   
+    //         if((x_dist < y_dist) && (piece.x < myHead.x) && ("left" in safeMoves)) { nextMove = "left"; }
+    //         else if((x_dist < y_dist) && (piece.x > myHead.x) && ("right" in safeMoves)) { nextMove = "right"; }   
     //         else if((piece.y < myHead.y) && ("down" in safeMoves)) { nextMove = "down"; }
     //         else if((piece.y > myHead.y) && ("up" in safeMoves)) { nextMove = "up"; } 
-    //             
+    //         else {
+    //
+    //         }
     //         
     //     }
 
@@ -207,7 +209,7 @@ function move(gameState) {
         //     if(piece.y < myHead.y) { dir = "down"; }
         //     else { dir = "up"; }
         // }   
-    }
+    //}
     nextMove = dir;
 
     console.log(`MOVE ${gameState.turn}: ${nextMove}`)
